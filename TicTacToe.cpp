@@ -22,9 +22,20 @@ class Board
 		}
 	}
 	
-	Board(char inBoard[][3])
+	Board(char gameBoard0[][3])
 	{
-		this->gameBoard = inBoard;
+		this->gameBoard[3][3] = gameBoard0[3][3];
+	}
+
+	void clearBoard()
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			for(int k = 0; k < 3; k++)
+			{
+				this->gameBoard[i][k] = ' ';
+			}
+		}
 	}
 
 	void getGameBoard()
@@ -43,49 +54,54 @@ class Board
 	
 	bool submitMove(string move, char player)
 	{
-		int x, y;
-		switch(move)
+		int x,y;
+		if(move == "A1")
 		{
-			case "A1":
-				x = 0;
-				y = 0;
-				break;
-			case "A2":
-				x = 0;
-				y = 1;
-				break;
-			case "A3":
-				x = 0;
-				y = 2;
-				break;
-			case "B1":
-				x = 1;
-				y = 0;
-				break;
-			case "B2":
-				x = 1;
-				y = 1;
-				break;
-			case "B3":
-				x = 1;
-				y = 2;
-				break;
-			case "C1":
-				x = 2;
-				y = 0;
-				break;
-			case "C2":
-				x = 2;
-				y = 1;
-				break;
-			case "C3":
-				x = 2;
-				y = 2;
-				break;
-			default:
-				cout<<"Invalid Input"<<endl;
-				break;
+			x = 0;
+			y = 0;
 		}
+		if(move == "A2")
+		{
+			x = 0;
+			y = 1;
+		}
+		if(move == "A3")
+		{
+			x = 0;
+			y = 2;
+		}
+		if(move == "B1")
+		{
+			x = 1;
+			y = 0;
+		}
+		if(move == "B2")
+		{
+			x = 1;
+			y = 1;
+		}
+		if(move == "B3")
+		{
+			x = 1;
+			y = 2;
+		}
+		if(move == "C1")
+		{
+			x = 2;
+			y = 0;
+		}
+		if(move == "C2")
+		{
+			x = 2;
+			y = 1;
+		}
+		if(move == "C3")
+		{
+			x = 2;
+			y = 2;
+		}
+		
+		
 		if(gameBoard[x][y] == ' ')
 		{
 			gameBoard[x][y] = player;
@@ -109,25 +125,52 @@ class Board
 					count  = 0;
 			}
 			if(count == 3)
+			{
+				cout<<player<<" wins"<<endl;
 				return true;
+			}
 			else
 				count  = 0;
 		}
+		
+		for(int i = 0; i<3; i++)
+		{
+			for(int k = 0; k<3; k++)
+			{
+				if(gameBoard[k][i] == player)
+					count++;
+				else
+					count  = 0;
+			}
+			if(count == 3)
+			{
+				cout<<player<<" wins"<<endl;
+				return true;
+			}
+			else
+				count  = 0;
+		}
+		
+		
+		
 		if(gameBoard[0][0] == player && gameBoard[1][1] == player && gameBoard[2][2] == player || gameBoard[0][2] == player && gameBoard[1][1] == player && gameBoard[2][0] == player)
+		{
+			cout<<player<<" wins"<<endl;
 			return true;
+		}
 		else
 			return false;
 	}
 	
 	bool isCat()
 	{
-		bool cat = true;
+		bool cat = false;
 		for(int i = 0; i < 3; i++)
 		{
 			for(int k = 0; k<3; k++)
 			{
-				if(gameBoard[i][k] == ' ')
-					cat = false;
+				if(gameBoard[i][k] != ' ')
+					cat = true;
 			}
 		}
 	}
@@ -177,7 +220,7 @@ class Player
 	
 	string getPlayerMove()
 	{
-		if(this->isHuman)
+		if(this->isHuman == true)
 			return getHumanMove();
 		else
 			return generateComputerMove();
@@ -185,7 +228,7 @@ class Player
 	
 	string getHumanMove()
 	{
-		string move = "";
+		string move;
 		cout<<"Input a move"<<endl;
 		cin>>move;
 		return move;
@@ -262,5 +305,32 @@ class Player
 
 int main()
 {
+	Board gameBoard[3][3];
+	gameBoard[3][3].clearBoard();
+	gameBoard[3][3].getGameBoard();
+	
+	char x = 'X';
+	char o = 'O';
+	bool human = true;
+		
+	Player player1 = Player(true, x);
+	Player player2 = Player(true, o);
+	
+	while(gameBoard[3][3].isWinner(player1.getMarker()) == false && gameBoard[3][3].isWinner(player2.getMarker()) == false && gameBoard[3][3].isCat() == false)
+	{
+		while(gameBoard[3][3].submitMove(player1.getHumanMove(), player1.getMarker()) == false)
+		{}
+		gameBoard[3][3].getGameBoard();
+		
+		if(gameBoard[3][3].isWinner(player1.getMarker()) == false && gameBoard[3][3].isCat() == false)
+		{
+			while(gameBoard[3][3].submitMove(player2.getPlayerMove(), player2.getMarker() == false))
+			{}
+			gameBoard[3][3].getGameBoard();	
+		}
+	}
+	return 0;
+	
+	 
 	
 }
