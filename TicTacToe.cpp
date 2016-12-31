@@ -40,10 +40,11 @@ class Board
 
 	void getGameBoard()
 	{
-		cout<<" ABC"<<endl;
+		char letters[3] = {'A', 'B', 'C'};
+		cout<<" 123"<<endl;
 		for (int i = 0; i<3; i++)
 		{
-			cout<<i+1;
+			cout<<letters[i];
 			for (int k = 0; k<3; k++)
 			{
 				cout<<gameBoard[i][k];
@@ -313,8 +314,8 @@ int main()
 	char o = 'O';
 	bool human = true;
 		
-	Player player1 = Player(true, x);
-	Player player2 = Player(true, o);
+	Player player1 = Player(human, x);
+	Player player2 = Player(human, o);
 	
 	while(gameBoard[3][3].isWinner(player1.getMarker()) == false && gameBoard[3][3].isWinner(player2.getMarker()) == false && gameBoard[3][3].isCat() == false)
 	{
@@ -322,12 +323,12 @@ int main()
 		{}
 		gameBoard[3][3].getGameBoard();
 		
-		if(gameBoard[3][3].isWinner(player1.getMarker()) == false && gameBoard[3][3].isCat() == false)
-		{
-			while(gameBoard[3][3].submitMove(player2.getPlayerMove(), player2.getMarker() == false))
-			{}
-			gameBoard[3][3].getGameBoard();	
-		}
+		while(gameBoard[3][3].submitMove(player2.getHumanMove(), player2.getMarker()) == false)
+		{}
+		gameBoard[3][3].getGameBoard();
+		
+
+
 	}
 	return 0;
 	
