@@ -3,6 +3,9 @@
 #include <fstream>
 #include <cmath>
 #include <cstdlib>
+#include <stdio.h>
+#include <ctype.h>
+#include <string>
 
 using namespace std;
 
@@ -22,9 +25,9 @@ class Board
 		}
 	}
 	
-	Board(char gameBoard0[][3])
+	Board(char gameBoard0[][2])
 	{
-		this->gameBoard[3][3] = gameBoard0[3][3];
+		this->gameBoard[2][2] = gameBoard0[2][2];
 	}
 
 	void clearBoard()
@@ -56,64 +59,29 @@ class Board
 	bool submitMove(string move, char player)
 	{
 		int x,y;
-		if(move == "A1")
+		string clearMove = move;
+		if (clearMove.length() != 2) return false;
+		if (clearMove[0] != 'A' && clearMove[0] != 'B' && clearMove[0] != 'C')
 		{
-			x = 0;
-			y = 0;
+			return false;
 		}
-		if(move == "A2")
+		if (clearMove[1] != '1' && clearMove[1] != '2' && clearMove[1] != '3') 
 		{
-			x = 0;
-			y = 1;
+			return false;
 		}
-		if(move == "A3")
-		{
-			x = 0;
-			y = 2;
-		}
-		if(move == "B1")
-		{
-			x = 1;
-			y = 0;
-		}
-		if(move == "B2")
-		{
-			x = 1;
-			y = 1;
-		}
-		if(move == "B3")
-		{
-			x = 1;
-			y = 2;
-		}
-		if(move == "C1")
-		{
-			x = 2;
-			y = 0;
-		}
-		if(move == "C2")
-		{
-			x = 2;
-			y = 1;
-		}
-		if(move == "C3")
-		{
-			x = 2;
-			y = 2;
-		}
-		
+			
+		x = clearMove[0] - 'A';
+		y = clearMove[1] - '1';
 		
 		if(gameBoard[x][y] == ' ')
 		{
 			gameBoard[x][y] = player;
 			return true;
 		}
-		else
-			return false;
-				
+		
 	}
 	
-	bool isWinner(char player)
+	bool isWinner(char player) const
 	{
 		int count  = 0;
 		for(int i = 0; i<3; i++)
@@ -163,7 +131,7 @@ class Board
 			return false;
 	}
 	
-	bool isCat()
+	bool isCat() const 
 	{
 		bool cat = false;
 		for(int i = 0; i < 3; i++)
@@ -209,17 +177,17 @@ class Player
 			this->marker = 'O';
 	}
 	
-	char getMarker()
+	char getMarker() const
 	{
 		return this->marker;
 	}
 	
-	bool getIsHuman()
+	bool getIsHuman() const
 	{
 		return this->isHuman;
 	}
 	
-	string getPlayerMove()
+	string getPlayerMove() 
 	{
 		if(this->isHuman == true)
 			return getHumanMove();
@@ -227,7 +195,7 @@ class Player
 			return generateComputerMove();
 	}
 	
-	string getHumanMove()
+	string getHumanMove() const
 	{
 		string move;
 		cout<<"Input a move"<<endl;
@@ -306,9 +274,9 @@ class Player
 
 int main()
 {
-	Board gameBoard[3][3];
-	gameBoard[3][3].clearBoard();
-	gameBoard[3][3].getGameBoard();
+	Board gameBoard;
+	gameBoard.clearBoard();
+	gameBoard.getGameBoard();
 	
 	char x = 'X';
 	char o = 'O';
@@ -317,15 +285,22 @@ int main()
 	Player player1 = Player(human, x);
 	Player player2 = Player(human, o);
 	
-	while(gameBoard[3][3].isWinner(player1.getMarker()) == false && gameBoard[3][3].isWinner(player2.getMarker()) == false && gameBoard[3][3].isCat() == false)
+	while(gameBoard.isWinner(player1.getMarker()) == false
+	 && gameBoard.isWinner(player2.getMarker()) == false
+	  && gameBoard.isCat() == false)
 	{
-		while(gameBoard[3][3].submitMove(player1.getHumanMove(), player1.getMarker()) == false)
+		while(gameBoard.submitMove(player1.getHumanMove(), player1.getMarker()) == false)
 		{}
-		gameBoard[3][3].getGameBoard();
+		gameBoard.getGameBoard();
 		
-		while(gameBoard[3][3].submitMove(player2.getHumanMove(), player2.getMarker()) == false)
+		if(gameBoard.isWinner(player1.getMarker()) && gameBoard.isCat())
+		{
+			break;
+		}
+		while(gameBoard.submitMove(player2.getHumanMove(), player2.getMarker()) == false
+			&& !gameBoard.isWinner(player1.getMarker()))
 		{}
-		gameBoard[3][3].getGameBoard();
+		gameBoard.getGameBoard();
 		
 
 
