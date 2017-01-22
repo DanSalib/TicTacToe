@@ -2,7 +2,7 @@
 
 Tic Tac Toe C++ Project to be played in console.
 
-For now. one must modify the code to decide whether they will like to play Human versus Human or Human versus Computer.
+For now, one must modify the code to decide whether they will like to play Human versus Human or Human versus Computer.
 (change "human" to "false" in Player 2 initialization)
 
 Run the program and use coordinate system labelled across the board to input moves (A/B/C, 1/2/3)
