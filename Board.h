@@ -6,99 +6,78 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string>
+#include <stdlib.h>
 
 using namespace std;
 
-class Board
-{
+class Board {
 	public:
 		char gameBoard[3][3];
 		
-	Board()
-	{
-		for(int i = 0; i < 3; i++)
-		{
-			for(int k = 0; k < 3; k++)
-			{
+	Board() {
+		for(int i = 0; i < 3; i++) {
+			for(int k = 0; k < 3; k++) {
 				this->gameBoard[i][k] = ' ';
 			}
 		}
 	}
 	
-	Board(char gameBoard0[][2])
-	{
+	Board(char gameBoard0[][2]) {
 		this->gameBoard[2][2] = gameBoard0[2][2];
 	}
 
-	void clearBoard()
-	{
-		for(int i = 0; i < 3; i++)
-		{
-			for(int k = 0; k < 3; k++)
-			{
+	void clearBoard() {
+		for(int i = 0; i < 3; i++) {
+			for(int k = 0; k < 3; k++) {
 				this->gameBoard[i][k] = ' ';
 			}
 		}
 	}
 
-	void getGameBoard()
-	{
+	void getGameBoard() {
 		char letters[3] = {'A', 'B', 'C'};
 		cout<<" 123"<<endl;
-		for (int i = 0; i<3; i++)
-		{
+		for (int i = 0; i<3; i++) {
 			cout<<letters[i];
-			for (int k = 0; k<3; k++)
-			{
+			for (int k = 0; k<3; k++) {
 				cout<<gameBoard[i][k];
 			}
 			cout<<endl;
 		}
 	}
 	
-	bool submitMove(string move, char player)
-	{
+	bool submitMove(string move, char player) {
 		int x,y;
-		string clearMove = move;
-		if (clearMove.length() != 2) return false;
-		if (clearMove[0] != 'A' && clearMove[0] != 'B' && clearMove[0] != 'C')
-		{
+		if (move.length() != 2) return false;
+		if (move[0] != 'A' && move[0] != 'B' && move[0] != 'C') {
 			return false;
 		}
-		if (clearMove[1] != '1' && clearMove[1] != '2' && clearMove[1] != '3') 
-		{
+		if (move[1] != '1' && move[1] != '2' && move[1] != '3') {
 			return false;
 		}
 			
-		x = clearMove[0] - 'A';
-		y = clearMove[1] - '1';
+		x = move[0] - 'A';
+		y = move[1] - '1';
 		
-		if(gameBoard[x][y] == ' ')
-		{
+		if(gameBoard[x][y] == ' ') {
 			gameBoard[x][y] = player;
 			return true;
 		}
-		else
-		{
+		else {
 			return false;
 		}
-		
 	}
 	
-	bool isWinner(char player) const
-	{
+	bool isWinner(char player) const {
 		int count  = 0;
-		for(int i = 0; i<3; i++)
-		{
-			for(int k = 0; k<3; k++)
-			{
+		for(int i = 0; i<3; i++) {
+			for(int k = 0; k<3; k++) {
 				if(gameBoard[i][k] == player)
 					count++;
 				else
 					count  = 0;
 			}
-			if(count == 3)
-			{
+			if(count == 3){
 				cout<<player<<" wins"<<endl;
 				return true;
 			}
@@ -106,17 +85,14 @@ class Board
 				count  = 0;
 		}
 		
-		for(int i = 0; i<3; i++)
-		{
-			for(int k = 0; k<3; k++)
-			{
+		for(int i = 0; i<3; i++) {
+			for(int k = 0; k<3; k++){
 				if(gameBoard[k][i] == player)
 					count++;
 				else
 					count  = 0;
 			}
-			if(count == 3)
-			{
+			if(count == 3) {
 				cout<<player<<" wins"<<endl;
 				return true;
 			}
@@ -126,8 +102,7 @@ class Board
 		
 		
 		
-		if(gameBoard[0][0] == player && gameBoard[1][1] == player && gameBoard[2][2] == player || gameBoard[0][2] == player && gameBoard[1][1] == player && gameBoard[2][0] == player)
-		{
+		if(gameBoard[0][0] == player && gameBoard[1][1] == player && gameBoard[2][2] == player || gameBoard[0][2] == player && gameBoard[1][1] == player && gameBoard[2][0] == player) {
 			cout<<player<<" wins"<<endl;
 			return true;
 		}
@@ -135,17 +110,18 @@ class Board
 			return false;
 	}
 	
-	bool isCat() const 
-	{
+	bool isCat() {
 		bool cat = false;
-		for(int i = 0; i < 3; i++)
-		{
-			for(int k = 0; k<3; k++)
-			{
+		for(int i = 0; i < 3; i++) {
+			for(int k = 0; k<3; k++) {
 				if(gameBoard[i][k] != ' ')
 					cat = true;
+				else
+					cat = false;
+					break;
 			}
 		}
+		return cat;
 	}
 	
 	

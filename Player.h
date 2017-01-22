@@ -6,23 +6,22 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string>
+#include <stdlib.h>
+#include <ctime>
 
 using namespace std;
 
-class Player
-{
+class Player {
 	public:
 		char marker;
 		bool isHuman;
 		
-	Player()
-	{
+	Player() {
 		this->marker = 'X';
 		this->isHuman = true;
 	}
 	
-	Player(bool inIsHuman)
-	{
+	Player(bool inIsHuman) {
 		this->isHuman = inIsHuman;
 		if(inIsHuman)
 			this->marker = 'X';
@@ -30,8 +29,7 @@ class Player
 			this->marker = 'O';
 	}
 	
-	Player(bool inIsHuman, char inMarker)
-	{
+	Player(bool inIsHuman, char inMarker) {
 		this->isHuman  = inIsHuman;
 		if(inMarker == 'X')
 			this->marker = 'X';
@@ -39,97 +37,41 @@ class Player
 			this->marker = 'O';
 	}
 	
-	char getMarker() const
-	{
+	char getMarker() const {
 		return this->marker;
 	}
 	
-	bool getIsHuman() const
-	{
+	bool getIsHuman() const {
 		return this->isHuman;
 	}
 	
-	string getPlayerMove() 
-	{
+	string getPlayerMove() {
 		if(this->isHuman == true)
 			return getHumanMove();
 		else
 			return generateComputerMove();
 	}
 	
-	string getHumanMove() const
-	{
+	string getHumanMove() const {
 		string move;
 		cout<<"Input a move"<<endl;
 		cin>>move;
 		return move;
 	}
 	
-	string generateComputerMove()
-	{
+	string generateComputerMove() {
 		string move;
+		srand(time(NULL));
 		int x, y;
-		x = (rand() % 3);
-		y = (rand() % 3);
-		
-		switch(x)
-		{
-			case 0:
-				switch(y)
-				{
-					case 0:
-						move = "A1";
-						break;
-					case 1:
-						move = "A2";
-						break;
-					case 2:
-						move = "A3";
-						break;
-					default:
-						move = "N";
-						break;
-				}
-			case 1:
-				switch(y)
-				{
-					case 0:
-						move = "B1";
-						break;
-					case 1:
-						move = "B2";
-						break;
-					case 2:
-						move = "B3";
-						break;
-					default:
-						move = "N";
-						break;
-				}
-			case 2:
-				switch(y)
-				{
-					case 0:
-						move = "C1";
-						break;
-					case 1:
-						move = "C2";
-						break;
-					case 2:
-						move = "C3";
-						break;
-					default:
-						move = "N";
-						break;
-				}
-			default:
-				move = "N";
-				break;
-				
-		}
+		x = rand()%3;
+		y = rand()%3;
+		char moves[3] = {'A', 'B', 'C'};
+		char moves2[3] = {'1', '2', '3'};
+		char move1 = moves[y];
+		char move2 = moves2[x];
+		string move3 = "";
+		move += move1;
+		move += move2;
 		return move;
-		
 	}
-	
-	
 };
