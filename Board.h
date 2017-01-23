@@ -36,14 +36,20 @@ class Board {
 
 	void getGameBoard() {
 		char letters[3] = {'A', 'B', 'C'};
-		cout<<" 123"<<endl;
-		for (int i = 0; i<3; i++) {
-			cout<<letters[i];
+		cout<<"   1 | 2 | 3"<<endl;
+		cout<<"  ------------"<<endl;
+		for (int i = 0; i<3; i++) {                
+			cout<<letters[i]<<" ";
 			for (int k = 0; k<3; k++) {
-				cout<<gameBoard[i][k];
+				if(k<2)
+					cout<<" "<<gameBoard[i][k]<<" |";
+				else                       
+					cout<<" "<<gameBoard[i][k]<<" ";
 			}
-			cout<<endl;
+			if(i<2)
+				cout<<endl<<"  ------------"<<endl;
 		}
+		cout<<endl<<endl;;
 	}
 	
 	bool submitMove(string move, char player) {
@@ -114,13 +120,14 @@ class Board {
 		bool cat = false;
 		for(int i = 0; i < 3; i++) {
 			for(int k = 0; k<3; k++) {
-				if(gameBoard[i][k] != ' ')
-					cat = true;
-					if(gameBoard[2][2] != ' ')
-						return cat;
-				else
+				if(gameBoard[i][k] == ' ')
+				{
 					cat = false;
 					break;
+				}
+				else {
+					cat == true;
+				}
 			}
 			if(!cat)
 				break;
