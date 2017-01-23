@@ -116,10 +116,14 @@ class Board {
 			for(int k = 0; k<3; k++) {
 				if(gameBoard[i][k] != ' ')
 					cat = true;
+					if(gameBoard[2][2] != ' ')
+						return cat;
 				else
 					cat = false;
 					break;
 			}
+			if(!cat)
+				break;
 		}
 		return cat;
 	}
