@@ -22,4 +22,3 @@ ___
 Handling user input can lead to many unpredictable and unplanned uses of your code. This was the most challenging part of TicTacToe since a multitude of test cases had to be checked to ensure the game runs smoothly under all conditions. 
 
 
-![tictactoe](https://cloud.githubusercontent.com/assets/24818991/22197122/9b04b914-e11e-11e6-8517-fef287873fc8.png)
