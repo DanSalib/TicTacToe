@@ -45,6 +45,7 @@ int main() {
 		while(gameBoard.submitMove(player2.getPlayerMove(), player2.getMarker()) == false
 			&& !gameBoard.isWinner(player1.getMarker())) {}
 		gameBoard.getGameBoard();
+		cout<<gameBoard.isCat();
 	}
 	if(gameBoard.isCat())
 		cout<<"Cats Game!";

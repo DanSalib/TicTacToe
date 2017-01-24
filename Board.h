@@ -123,14 +123,12 @@ class Board {
 				if(gameBoard[i][k] == ' ')
 				{
 					cat = false;
-					break;
+					return cat;
 				}
-				else {
-					cat == true;
+				if(gameBoard[i][k] != ' '){
+					cat = true;
 				}
 			}
-			if(!cat)
-				break;
 		}
 		return cat;
 	}

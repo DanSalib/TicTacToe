@@ -12,9 +12,10 @@
 using namespace std;
 
 class Player {
-	public:
-		char marker;
-		bool isHuman;
+	bool isHuman;
+	char marker;
+	
+public:
 		
 	Player() {
 		this->marker = 'X';
